@@ -1,5 +1,5 @@
 node_modules
-src/dev
-src/scratch.jsx
-/src/dev
+/src/dev/
+/src/scratch.jsx
 .idea
+.nvmrc
