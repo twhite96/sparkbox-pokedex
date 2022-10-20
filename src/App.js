@@ -1,8 +1,7 @@
-import "./styles.css";
-import Deck from './components/Deck/Deck.jsx'
+import Pokemon from './components/Pokemon/Pokemon'
 
 export default function App() {
   return (
-   <Deck />
+   <Pokemon />
   );
 }

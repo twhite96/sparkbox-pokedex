@@ -1,25 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import '../../styles/Pokemon.css'
 
-export default function Pokemon(props) {
-  const showPokemon = (props) => {
-    const { pokemon } = props;
-    if (pokemon !== null) {
-      return pokemon.map((pokemon, i) => {
-        console.table(pokemon);
-        return (
-          <div className="container">
-            <div className="card" key={pokemon.id}>
-              <h2 className="poke-name">{pokemon.name}</h2>
-              <img src={pokemon.image} alt="pokemon card" />
-              <p className="poke-effect">{pokemon.effect}</p>
-            </div>
-          </div>
-        );
+const Pokemon = () => {
+  const [pokemonCards, setPokemonCards] = useState([]);
+  const [sorted, setSorted] = useState(false);
+  const API_URL = "https://pokeapi.co/api/v2/pokemon";
+
+  useEffect(() => {
+    if(pokemonCards.length === 0) {
+      axios.get(`${API_URL}`).then((response) => {
+        console.table(response);
+        setPokemonCards(response.data);
+      }).catch((error) => {
+        console.warn(`Error: ${error}`);
       });
-    } else {
-      return <h3>Loading...</h3>;
     }
-  };
-  return <>{showPokemon(props)}</>;
+  }, []);
+
+  const sortPokemon = () => {
+    const pokeArray = !sorted;
+    setSorted(pokeArray);
+    setPokemonCards((data) => {
+      data.sort((a, b) => {
+        return pokeArray
+        ? a.name - b.name : b.name - a.name;
+      })
+    })
+  }
+
+  return (
+      <div>
+        <h1>Pokedex</h1>
+        <div className="pokecard-container">
+          {pokemonCards.map((pokemon) => (
+              <div className="pokecard" key={pokemon.id}>
+                <h3>{pokemon.name}</h3>
+                <img src={pokemon.sprites.front_default}/>
+                <p>pokemon.abilities.ability.name</p>
+                <input type="checkbox" aria-label={}/>
+              </div>
+          ))}
+        </div>
+      </div>
+  );
 }
+
+export default Pokemon;

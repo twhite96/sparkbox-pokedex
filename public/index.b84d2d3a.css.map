@@ -1,0 +1,1 @@
+{"mappings":"ACAA","sources":["index.b84d2d3a.css","src/styles.css","src/styles/Pokemon.css"],"sourcesContent":[".App {\n  text-align: center;\n  font-family: sans-serif;\n}\n\n\n\n/*# sourceMappingURL=index.b84d2d3a.css.map */\n",".App {\n  font-family: sans-serif;\n  text-align: center;\n}\n",".card {\n\n}"],"names":[],"version":3,"file":"index.b84d2d3a.css.map"}

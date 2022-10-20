@@ -3,3 +3,4 @@ src/dev/
 src/scratch.jsx
 .idea
 .nvmrc
+/.parcel-cache/
