@@ -9,7 +9,7 @@ const Pokemon = () => {
 
   useEffect(() => {
     if(pokemonCards.length === 0) {
-      axios.get(`${API_URL}`).then((response) => {
+      axios.get(`${API_URL}/${id}`).then((response) => {
         console.table(response);
         setPokemonCards(response.data);
       }).catch((error) => {
@@ -29,8 +29,14 @@ const Pokemon = () => {
     })
   }
 
+  const handleSortOnClick = (clicked) => {
+
+  }
+
   return (
       <div>
+        <select name="sort A-Z" id="sort">
+        </select>
         <h1>Pokedex</h1>
         <div className="pokecard-container">
           {pokemonCards.map((pokemon) => (
