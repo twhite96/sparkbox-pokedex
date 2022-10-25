@@ -3,34 +3,35 @@ import axios from "axios";
 import '../../styles/Pokemon.css'
 
 const Pokemon = () => {
-  const [pokemonCards, setPokemonCards] = useState([]);
-  const [sorted, setSorted] = useState(false);
-  const API_URL = "https://pokeapi.co/api/v2/pokemon";
+  const [pokemon, setPokemon] = useState({});
+  const [favorited, setFavorite] = useState(true);
+  const [image, setImage] = useState("");
+  const [pokeName, setPokeName] = useState("");
 
+  const API_URL = "https://pokeapi.co/api/v2/pokemon";
   useEffect(() => {
-    if(pokemonCards.length === 0) {
-      axios.get(`${API_URL}/${id}`).then((response) => {
-        console.table(response);
-        setPokemonCards(response.data);
-      }).catch((error) => {
-        console.warn(`Error: ${error}`);
-      });
-    }
+    getPokemon();
   }, []);
 
-  const sortPokemon = () => {
-    const pokeArray = !sorted;
-    setSorted(pokeArray);
-    setPokemonCards((data) => {
-      data.sort((a, b) => {
-        return pokeArray
-        ? a.name - b.name : b.name - a.name;
-      })
+  const getPokemon = (id) => {
+    axios
+        .get(`${API_URL}/${id}`)
+        .then((response) => {
+      console.log(response.data)
+      setPokemon(response.data)
     })
   }
+  const sortPokemon = (select) => {
+    const options = {
+      "a-z": [...pokemon].sort((a, b) => (a < b ? -1 : 1)),
+      "z-a": [...pokemon].sort((a, b) => (a < b ? 1 : -1))
+    };
 
-  const handleSortOnClick = (clicked) => {
+    setPokemon(options[select.target.value]);
+  };
 
+  const handleChange = (e) => {
+    setFavorite(e.target.checked);
   }
 
   return (
