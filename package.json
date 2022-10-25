@@ -2,13 +2,11 @@
   "name": "sparkbox-pokedex",
   "version": "1.0.0",
   "description": "sparkbox api tech project",
-  "source": "src/index.js",
+  "source": "src/index.html",
   "dependencies": {
-    "@react-buddy/ide-toolbox": "^2.2.1",
     "axios": "1.1.3",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "styled-components": "^5.3.6"
+    "react-dom": "18.2.0"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.19.4",
