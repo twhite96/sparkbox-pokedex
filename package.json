@@ -14,6 +14,7 @@
     "@babel/runtime": "7.13.8",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "buffer": "^6.0.3",
     "parcel": "^2.7.0",
     "process": "^0.11.10",
@@ -26,7 +27,7 @@
   "scripts": {
     "start": "parcel serve",
     "watch": "parcel watch",
-    "build": "parcel build src/index.html --out-dir public"
+    "build": "parcel build src/index.html"
   },
   "author": "Tiffany White",
   "license": "MIT",
