@@ -27097,6 +27097,7 @@ function Pokemon(props) {
     _s();
     const [pokemon, setPokemon] = (0, _react.useState)([]);
     const [sprites, setSprites] = (0, _react.useState)("");
+    const [sortStatus, setSortStatus] = (0, _react.useState)(true);
     const [favorite, setFavorite] = (0, _react.useState)(new Array(pokemon.length).fill(false));
     const [isLoading, setIsLoading] = (0, _react.useState)(false);
     const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20";
@@ -27110,110 +27111,113 @@ function Pokemon(props) {
     }, [
         API_URL
     ]);
-    const sortPokemon = (select)=>{
-        const options = {
-            "a-z": [
-                pokemon
-            ].sort((a, b)=>a < b ? -1 : 1),
-            "z-a": [
-                pokemon
-            ].sort((a, b)=>a < b ? 1 : -1)
-        };
-        setPokemon(options[select.target.value]);
+    const handleSort = ()=>{
+        const newArr = [
+            pokemon
+        ];
+        if (sortStatus) {
+            let isSorted = newArr.sort((a, b)=>a[1] - b[1]);
+            setPokemon(isSorted);
+            setSortStatus(!sortStatus);
+        } else {
+            let isSorted1 = newArr.sort((a, b)=>b[1] - a[1]);
+            setPokemon(isSorted1);
+            setSortStatus(!sortStatus);
+        }
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
-                    onChange: sortPokemon,
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+            className: "pokecard-container",
+            children: [
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("header", {
+                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
+                        className: "title",
+                        children: "Pokemon App"
+                    }, void 0, false, {
+                        fileName: "src/App.js",
+                        lineNumber: 41,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
+                    fileName: "src/App.js",
+                    lineNumber: 40,
+                    columnNumber: 17
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+                    className: "pokecards",
                     children: [
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                            value: "a-z",
-                            children: "A - Z"
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                            children: "Find your favorite Pokemon!"
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 36,
+                            lineNumber: 45,
                             columnNumber: 21
                         }, this),
-                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
-                            value: "z-a",
-                            children: "Z - A"
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
+                            children: pokemon.name
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 37,
+                            lineNumber: 46,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/App.js",
-                    lineNumber: 35,
+                    lineNumber: 44,
                     columnNumber: 17
-                }, this)
-            }, void 0, false, {
-                fileName: "src/App.js",
-                lineNumber: 34,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                className: "pokecard-container",
-                children: [
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("header", {
-                        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                            className: "title",
-                            children: "Pokemon App"
+                }, this),
+                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
+                    className: "pokedex",
+                    children: [
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                            children: "Gotta check 'em all!"
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 42,
+                            lineNumber: 50,
                             columnNumber: 21
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "src/App.js",
-                        lineNumber: 41,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
-                        className: "pokecards",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                children: "Find your favorite Pokemon!"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 46,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
-                                children: pokemon.name
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 47,
-                                columnNumber: 21
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/App.js",
-                        lineNumber: 45,
-                        columnNumber: 17
-                    }, this),
-                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
-                        className: "pokedex",
-                        children: [
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                                children: "Gotta check 'em all!"
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 51,
-                                columnNumber: 21
-                            }, this),
-                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-                                className: "pokelist",
-                                children: pokemon.map((p)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                        }, this),
+                        /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                            className: "pokelist",
+                            children: [
+                                /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
+                                        defaultValue: "default",
+                                        onChange: (e)=>handleSort(e.target.value),
+                                        children: [
+                                            ">",
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                children: "A - Z"
+                                            }, void 0, false, {
+                                                fileName: "src/App.js",
+                                                lineNumber: 54,
+                                                columnNumber: 33
+                                            }, this),
+                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
+                                                children: "Z - A"
+                                            }, void 0, false, {
+                                                fileName: "src/App.js",
+                                                lineNumber: 55,
+                                                columnNumber: 33
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "src/App.js",
+                                        lineNumber: 53,
+                                        columnNumber: 29
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "src/App.js",
+                                    lineNumber: 52,
+                                    columnNumber: 25
+                                }, this),
+                                pokemon.map((p)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                         className: "pokecard",
                                         children: [
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                                                 children: p.name
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 55,
+                                                lineNumber: 61,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
@@ -27221,7 +27225,7 @@ function Pokemon(props) {
                                                 alt: "pokemon image"
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 57,
+                                                lineNumber: 63,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27229,7 +27233,7 @@ function Pokemon(props) {
                                                 onChange: ()=>setFavorite(!favorite)
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 60,
+                                                lineNumber: 66,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27237,56 +27241,45 @@ function Pokemon(props) {
                                                 children: "Favorite"
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 64,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("p", {
-                                                children: [
-                                                    "You ",
-                                                    favorite ? "liked" : "did not like",
-                                                    " this."
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "src/App.js",
-                                                lineNumber: 66,
+                                                lineNumber: 70,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, pokemon.id, true, {
                                         fileName: "src/App.js",
-                                        lineNumber: 54,
+                                        lineNumber: 60,
                                         columnNumber: 29
                                     }, this))
-                            }, void 0, false, {
-                                fileName: "src/App.js",
-                                lineNumber: 52,
-                                columnNumber: 21
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "src/App.js",
-                        lineNumber: 50,
-                        columnNumber: 17
-                    }, this)
-                ]
-            }, void 0, true, {
-                fileName: "src/App.js",
-                lineNumber: 40,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
+                            ]
+                        }, void 0, true, {
+                            fileName: "src/App.js",
+                            lineNumber: 51,
+                            columnNumber: 21
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "src/App.js",
+                    lineNumber: 49,
+                    columnNumber: 17
+                }, this)
+            ]
+        }, void 0, true, {
+            fileName: "src/App.js",
+            lineNumber: 39,
+            columnNumber: 13
+        }, this)
+    }, void 0, false, {
         fileName: "src/App.js",
-        lineNumber: 33,
+        lineNumber: 38,
         columnNumber: 9
     }, this);
 }
-_s(Pokemon, "zdq0JmWFs7KYw9Gu1NA3JwELyzc=");
+_s(Pokemon, "naGf7G4J1oPSdw9CZKCVGqFLxts=");
 _c = Pokemon;
 function App() {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Pokemon, {}, void 0, false, {
         fileName: "src/App.js",
-        lineNumber: 80,
+        lineNumber: 86,
         columnNumber: 9
     }, this);
 }

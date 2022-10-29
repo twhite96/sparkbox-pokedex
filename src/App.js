@@ -5,9 +5,9 @@ import './styles/Pokemon.css'
 function Pokemon (props) {
     const [pokemon, setPokemon] = useState([]);
     const [sprites, setSprites] = useState('');
+    const [sortStatus, setSortStatus] = useState(true);
     const [favorite, setFavorite] = useState( new Array(pokemon.length).fill(false));
     const [isLoading, setIsLoading] = useState(false);
-
 
     const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20"
     useEffect(() => {
@@ -19,24 +19,23 @@ function Pokemon (props) {
         });
     }, [API_URL]);
 
-    const sortPokemon = (select) => {
-        const options = {
-            "a-z": [pokemon].sort((a, b) => (a < b ? -1 : 1)),
-            "z-a": [pokemon].sort((a, b) => (a < b ? 1 : -1))
-        };
-        setPokemon(options[select.target.value]);
-    };
+    const handleSort = () => {
+        const newArr = [pokemon];
+        if (sortStatus) {
+            let isSorted = newArr.sort((a, b) => a[1] - b[1]);
+            setPokemon(isSorted);
+            setSortStatus(!sortStatus)
+        } else {
+            let isSorted = newArr.sort((a, b) => b[1] - a[1]);
+            setPokemon(isSorted);
+            setSortStatus(!sortStatus);
+        }
 
+    };
 
 
     return (
         <div>
-            <div>
-                <select onChange={sortPokemon}>
-                    <option value="a-z">A - Z</option>
-                    <option value="z-a">Z - A</option>
-                </select>
-            </div>
             <div className="pokecard-container">
                 <header>
                     <h1 className="title">Pokemon App</h1>
@@ -50,6 +49,13 @@ function Pokemon (props) {
                 <section className="pokedex">
                     <h2>Gotta check 'em all!</h2>
                     <div className="pokelist" >
+                        <div>
+                            <select defaultValue="default" onChange={(e) => handleSort(e.target.value)}>>
+                                <option>A - Z</option>
+                                <option>Z - A</option>
+                            </select>
+
+                        </div>
                         {pokemon.map((p) => (
                             <div className="pokecard" key={pokemon.id}>
                                 <h3>{p.name}</h3>
@@ -63,7 +69,7 @@ function Pokemon (props) {
                                 />
                                 <label htmlFor="favorite">Favorite</label>
 
-                                <p>You {favorite ? 'liked' : 'did not like'} this.</p>
+                                {/*<p>You {favorite ? 'liked' : 'did not like'} this.</p>*/}
                             </div>
                         ))}
                     </div>
