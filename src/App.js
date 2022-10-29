@@ -4,7 +4,7 @@ import './styles/Pokemon.css'
 
 function Pokemon (props) {
     const [pokemon, setPokemon] = useState([]);
-    const [sprites, setSprites] = useState('');
+    const [sprites, setSprites] = useState(front_default = '');
     const [sortStatus, setSortStatus] = useState(true);
     const [favorite, setFavorite] = useState( new Array(pokemon.length).fill(false));
     const [isLoading, setIsLoading] = useState(false);
@@ -19,18 +19,20 @@ function Pokemon (props) {
         });
     }, [API_URL]);
 
+    // Will need to figure out how to sort using the sort method, creating a shallow copy of
+    // the array of objects coming from the PokeAPI and returning and rendering a list of pokemon
     const handleSort = () => {
         const newArr = [pokemon];
         if (sortStatus) {
-            let isSorted = newArr.sort((a, b) => a[1] - b[1]);
+            let isSorted = newArr.sort((a, b) => {return a[1] - b[1]});
             setPokemon(isSorted);
             setSortStatus(!sortStatus)
         } else {
-            let isSorted = newArr.sort((a, b) => b[1] - a[1]);
+            let isSorted = newArr.sort((a, b) =>{return b[1] - a[1]});;
             setPokemon(isSorted);
             setSortStatus(!sortStatus);
         }
-
+        console.table(handleSort);
     };
 
 
@@ -50,17 +52,18 @@ function Pokemon (props) {
                     <h2>Gotta check 'em all!</h2>
                     <div className="pokelist" >
                         <div>
-                            <select defaultValue="default" onChange={(e) => handleSort(e.target.value)}>>
+                            <select defaultValue="default" onChange={handleSort}>
                                 <option>A - Z</option>
                                 <option>Z - A</option>
+
                             </select>
 
                         </div>
                         {pokemon.map((p) => (
                             <div className="pokecard" key={pokemon.id}>
                                 <h3>{p.name}</h3>
-
-                                <img src={sprites} alt="pokemon image"/>
+                                {/* If I can't get these images rendered by tonight, I won't use them */}
+                                <img key={p.id} src={sprites} alt="pokemon image"/>
 
 
                                 <input

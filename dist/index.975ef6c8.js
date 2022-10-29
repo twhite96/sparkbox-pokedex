@@ -27096,7 +27096,7 @@ var _s = $RefreshSig$();
 function Pokemon(props) {
     _s();
     const [pokemon, setPokemon] = (0, _react.useState)([]);
-    const [sprites, setSprites] = (0, _react.useState)("");
+    const [sprites, setSprites] = (0, _react.useState)(front_default = "");
     const [sortStatus, setSortStatus] = (0, _react.useState)(true);
     const [favorite, setFavorite] = (0, _react.useState)(new Array(pokemon.length).fill(false));
     const [isLoading, setIsLoading] = (0, _react.useState)(false);
@@ -27111,19 +27111,26 @@ function Pokemon(props) {
     }, [
         API_URL
     ]);
+    // Will need to figure out how to sort using the sort method, creating a shallow copy of
+    // the array of objects coming from the PokeAPI and returning and rendering a list of pokemon
     const handleSort = ()=>{
         const newArr = [
             pokemon
         ];
         if (sortStatus) {
-            let isSorted = newArr.sort((a, b)=>a[1] - b[1]);
+            let isSorted = newArr.sort((a, b)=>{
+                return a[1] - b[1];
+            });
             setPokemon(isSorted);
             setSortStatus(!sortStatus);
         } else {
-            let isSorted1 = newArr.sort((a, b)=>b[1] - a[1]);
+            let isSorted1 = newArr.sort((a, b)=>{
+                return b[1] - a[1];
+            });
             setPokemon(isSorted1);
             setSortStatus(!sortStatus);
         }
+        console.table(handleSort);
     };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27135,12 +27142,12 @@ function Pokemon(props) {
                         children: "Pokemon App"
                     }, void 0, false, {
                         fileName: "src/App.js",
-                        lineNumber: 41,
+                        lineNumber: 43,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "src/App.js",
-                    lineNumber: 40,
+                    lineNumber: 42,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
@@ -27150,20 +27157,20 @@ function Pokemon(props) {
                             children: "Find your favorite Pokemon!"
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 45,
+                            lineNumber: 47,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h3", {
                             children: pokemon.name
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 46,
+                            lineNumber: 48,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/App.js",
-                    lineNumber: 44,
+                    lineNumber: 46,
                     columnNumber: 17
                 }, this),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("section", {
@@ -27173,7 +27180,7 @@ function Pokemon(props) {
                             children: "Gotta check 'em all!"
                         }, void 0, false, {
                             fileName: "src/App.js",
-                            lineNumber: 50,
+                            lineNumber: 52,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27182,32 +27189,31 @@ function Pokemon(props) {
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
                                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("select", {
                                         defaultValue: "default",
-                                        onChange: (e)=>handleSort(e.target.value),
+                                        onChange: handleSort,
                                         children: [
-                                            ">",
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
                                                 children: "A - Z"
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 54,
+                                                lineNumber: 56,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("option", {
                                                 children: "Z - A"
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 55,
+                                                lineNumber: 57,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "src/App.js",
-                                        lineNumber: 53,
+                                        lineNumber: 55,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "src/App.js",
-                                    lineNumber: 52,
+                                    lineNumber: 54,
                                     columnNumber: 25
                                 }, this),
                                 pokemon.map((p)=>/*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27217,15 +27223,15 @@ function Pokemon(props) {
                                                 children: p.name
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 61,
+                                                lineNumber: 64,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
                                                 src: sprites,
                                                 alt: "pokemon image"
-                                            }, void 0, false, {
+                                            }, p.id, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 63,
+                                                lineNumber: 66,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("input", {
@@ -27233,7 +27239,7 @@ function Pokemon(props) {
                                                 onChange: ()=>setFavorite(!favorite)
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 66,
+                                                lineNumber: 69,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("label", {
@@ -27241,45 +27247,45 @@ function Pokemon(props) {
                                                 children: "Favorite"
                                             }, void 0, false, {
                                                 fileName: "src/App.js",
-                                                lineNumber: 70,
+                                                lineNumber: 73,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, pokemon.id, true, {
                                         fileName: "src/App.js",
-                                        lineNumber: 60,
+                                        lineNumber: 63,
                                         columnNumber: 29
                                     }, this))
                             ]
                         }, void 0, true, {
                             fileName: "src/App.js",
-                            lineNumber: 51,
+                            lineNumber: 53,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/App.js",
-                    lineNumber: 49,
+                    lineNumber: 51,
                     columnNumber: 17
                 }, this)
             ]
         }, void 0, true, {
             fileName: "src/App.js",
-            lineNumber: 39,
+            lineNumber: 41,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/App.js",
-        lineNumber: 38,
+        lineNumber: 40,
         columnNumber: 9
     }, this);
 }
-_s(Pokemon, "naGf7G4J1oPSdw9CZKCVGqFLxts=");
+_s(Pokemon, "Ow2/XT8hOLVvGiTjFG3ld+qILec=");
 _c = Pokemon;
 function App() {
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Pokemon, {}, void 0, false, {
         fileName: "src/App.js",
-        lineNumber: 86,
+        lineNumber: 89,
         columnNumber: 9
     }, this);
 }
