@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import './styles/Pokemon.css'
+import Pokemon from "../src/components/Pokemon/Pokemon.jsx"
+import "./styles/Pokemon.css";
 
-function Pokemon (props) {
-  const [pokemon, setPokemon] = useState([]);
-  const [favorite, setFavorite] = useState( new Array(pokemon.length).fill(false));
-
-  const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20"
-  const SPRITES_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/"
-
+function PokemonList() {
+  const [pokemons, setPokemons] = useState([]);
+  const [favorite, setFavorite] = useState("");
+  const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20";
 
   useEffect(() => {
-    axios.get(API_URL).then(res => {
-      setPokemon(res.data.results);
+    axios.get(API_URL).then((res) => {
+      setPokemons(res.data.results);
     });
   }, [API_URL]);
 
-
-  // Using `Array.from()` to create a shallow copy of the pokemon array
-  // to not mutate the original array
-  // we never want to mutate state directly
-  const handleSort = () => {
-    const sorted = [...pokemon].sort((a, b) => a - b)
-    const sortAcs = sorted.name.toLocaleLowerCase();
-    const sortDesc = sorted.name.toLowerCase();
-    if (sortAcs < sortDesc) {
-      return -1;
-    }
-    if (sortAcs > sortDesc) {
-      return 1;
-    }
-    return 0;
-  }
+  const sorted = (direction) => {
+    // Using the .sort() array method mutates the array directly.
+    // mutating state and props directly in React is strongly discouraged
+    // creating a shallow copy of the pokemons array by destructuring the original array
+    // means we can call the sort function on the shallow copy
+    const newArray = [...pokemons];
+    const sortedPokemons = newArray.sort((a, b) => {
+      if (direction === "ASC") {
+        return a.name.localeCompare(b.name);
+      }
+      return b.name.localeCompare(a.name);
+    });
+    setPokemons(sortedPokemons);
+  };
 
   return (
     <div>
-
       <div className="pokecard-container">
         <header>
           <h1 className="title">Pokemon App</h1>
@@ -43,49 +38,33 @@ function Pokemon (props) {
 
         <section className="pokecards">
           <h2>Find your favorite Pokemon!</h2>
-          <h3>{pokemon.name}</h3>
+          <p>{favorite && `Current favorite: ${favorite}`}</p>
         </section>
-
+        <div>
+          {/* Needed a quick way to get the sort direction working, so I chose
+           two buttons for each direction instead of one */}
+          <div className="sort-me">
+            <button onClick={() => sorted("ASC")}>
+              Sort Alphabetically (ASC)
+            </button>
+            <button onClick={() => sorted("DESC")}>
+              Sort Alphabetically (DESC)
+            </button>
+          </div>
+        </div>
         <section className="pokedex">
           <h2>Gotta check 'em all!</h2>
-          <div className="pokelist" >
-            <div>
-              <select defaultValue="default" onChange={handleSort}>
-                <option>A - Z</option>
-                <option>Z - A</option>
-
-              </select>
-            </div>
-            {pokemon.map((p) => (
-              <div className="pokecard" key={pokemon.id}>
-                <h3>{p.name}</h3>
-                <div>
-
-
-                </div>
-                {/* If I can't get these images rendered by tonight, I won't use them */}
-
-
-                <input
-                  type="checkbox"
-                  onChange={() => setFavorite(!favorite)}
-                />
-                <label htmlFor="favorite">Favorite</label>
-
-                {/*<p>You {favorite ? 'liked' : 'did not like'} this.</p>*/}
-              </div>
+          <div className="pokelist">
+            {pokemons.map((p) => (
+              <Pokemon key={p.key} name={p.name} setFavorite={setFavorite} />
             ))}
           </div>
         </section>
-
       </div>
     </div>
   );
 }
 
-
 export default function App() {
-  return (
-    <Pokemon />
-  )
+  return <PokemonList />;
 }
