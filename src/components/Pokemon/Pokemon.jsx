@@ -1,86 +1,27 @@
-// noinspection JSCheckFunctionSignatures
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import '../../styles/Pokemon.css'
+import "../../styles/Pokemon.css";
 
-const Pokemon = () => {
-  const [pokemon, setPokemon] = useState({});
-  const [favorited, setFavorite] = useState(true);
-  const [pokedex, setPokedex] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-
-  const API_URL = "https://pokeapi.co/api/v2/pokemon/?limit=20"
+export default function Pokemon({ name, setFavorite }) {
+  const POKEMON_URL = `https://pokeapi.co/api/v2/pokemon/${name}`;
+  const [image, setImage] = useState("");
   useEffect(() => {
-    setLoading(true);
-    axios.get(API_URL).then(res => {
-      setLoading(false);
-      setPokemon(res.data.results);
+    axios.get(POKEMON_URL).then((res) => {
+      console.log(res.data);
+      setImage(res.data.sprites.front_default);
     });
-  }, [API_URL]);
-
-  const sortPokemon = (select) => {
-    const options = {
-      "a-z": [...pokemon].sort((a, b) => (a < b ? -1 : 1)),
-      "z-a": [...pokemon].sort((a, b) => (a < b ? 1 : -1))
-    };
-
-    setPokemon(options[select.target.value]);
-
-  };
-
-
-
-  const handleChange = (e) => {
-    setFavorite(e.target.checked);
-  }
-  if (loading) return 'Loading...'
-
+  }, [POKEMON_URL]);
   return (
-      <div>
-        <div>
-          <select onChange={sortPokemon}>
-            <option value="a-z">A - Z</option>
-            <option value="z-a">Z - A</option>
-          </select>
-        </div>
-        <div className="pokecard-container">
-          <header>
-            <h1 className="title">Pokemon App</h1>
-          </header>
+    <div className="pokecard">
+      <h3>{name}</h3>
 
-          <section className="pokecards">
-            <h2>Find your favorite Pokemon!</h2>
-            <h3>{pokemon.name}</h3>
-          </section>
-
-          <section className="pokedex">
-            <h2>Gotta check 'em all!</h2>
-            <div className="pokelist" key={pokemon.id}>
-              {pokedex.map((pokemon) => (
-                  <div className="pokecard">
-                    <h3>{pokemon.name}</h3>
-                    <img src={"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon" + pokemon.id + ".png"} alt="pokemon image"/>
-                    <label>
-                      <input
-                          type="checkbox"
-                          checked={favorited}
-                          onChange={handleChange}
-                      />
-                      Favorite
-                    </label>
-                    <p>You {favorited ? 'liked' : 'did not like'} this.</p>
-                  </div>
-              ))}
-            </div>
-          </section>
-
-        </div>
-      </div>
+      {/* Discovered that I wasn't using the correct way to access the sprites property from the API
+       which caused me confusion on how to grab each image */}
+      <img src={image} alt={name} />
+      {/* changed each checkbox to a radio button; favorite indicates just one thing, instead of multiple
+       which is exactly why you'd use a radio button*/}
+      <input name="pokemon" type="radio" onChange={() => setFavorite(name)} />
+      <label htmlFor="favorite">Favorite</label>
+    </div>
   );
 }
-
-
-
-export default Pokemon;
