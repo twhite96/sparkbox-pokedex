@@ -5,4 +5,4 @@ src/scratch.jsx
 .nvmrc
 /.parcel-cache/
 /yarn-error.log
-/dist/
+dist/
