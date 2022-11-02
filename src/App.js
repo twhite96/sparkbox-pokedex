@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ChakraProvider, ButtonGroup, Button, Box, Spinner } from '@chakra-ui/react';
+import { ChakraProvider, ButtonGroup, Button, Box } from '@chakra-ui/react';
 import Pokemon from "../src/components/Pokemon/Pokemon.jsx"
 import "./styles/Pokemon.css";
 
