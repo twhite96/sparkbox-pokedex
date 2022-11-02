@@ -22,7 +22,7 @@ export default function Pokemon({ name, setFavorite }) {
       {/* changed each checkbox to a radio button; favorite indicates just one thing, instead of multiple
        which is exactly why you'd use a radio button*/}
       <input className="form-control" name="pokemon" type="radio" onChange={() => setFavorite(name)} />
-      <label htmlFor="favorite">Favorite</label>
+      <label htmlFor="favorite"></label>
     </div>
   );
 }
