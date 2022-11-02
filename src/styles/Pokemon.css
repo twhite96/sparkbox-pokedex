@@ -9,6 +9,7 @@ body {
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    background: white;
 }
 
 .pokecard-container {
@@ -30,7 +31,7 @@ header {
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
 .title {
-    color: #171717;
+    color: #273444;
     font-size: 32px;
     text-transform: uppercase;
     font-weight: 900;
@@ -39,11 +40,18 @@ header {
 
 .pokecards {
     min-height: 300px;
-    background: firebrick;
     padding: 15px;
 }
-.pokecards h2 {
-    color: #F3F3F3;
+
+h2 {
+    color: #273444;
+    font-size: 32px;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: center;
+}
+.pokecards {
+    color: #273444;
     font-size: 32px;
     text-transform: uppercase;
     font-weight: 300;
@@ -64,7 +72,16 @@ header {
     text-align: center;
 }
 
-
+.form-control {
+    color: rebeccapurple;
+    font-family: system-ui, sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    line-height: 1.1;
+    display: grid;
+    grid-template-columns: 1em auto;
+    gap: 0.5em;
+}
 .pokedex {
     flex: 1;
     padding: 15px;
@@ -93,4 +110,9 @@ header {
 
 .pokelist .pokecards .sprite {
     width: 100%;
+}
+
+
+input[type="radio"] {
+    font-size: 2rem;
 }
